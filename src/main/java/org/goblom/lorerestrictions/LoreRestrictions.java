@@ -1,11 +1,14 @@
 
 package org.goblom.lorerestrictions;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -56,4 +59,11 @@ public class LoreRestrictions extends JavaPlugin {
     public List<String> getRestrictedList() { return getConfig().getStringList("Restricted-Words"); }
     public String getRestrictedWord() { return getConfig().getString("Restricted-Words"); }
     public void sendMessage(Player player, String message) { player.sendMessage(prefix + ChatColor.translateAlternateColorCodes('&', message)); }
+    
+    public void moveItemFirstEmpty(Player player, ItemStack itemStack) {
+        int firstEmpty = player.getInventory().firstEmpty();
+        player.getInventory().remove(itemStack);
+        player.getInventory().setItem(firstEmpty, itemStack);
+        player.updateInventory();
+    }
 }

@@ -35,8 +35,8 @@ public class PlayerListener implements Listener {
                     if (lore.contains(plugin.getRestrictedWord())) {
                         if (player.hasPermission("lorerestriction." + plugin.getRestrictedWord())) return;
                         if (!player.hasPermission("lorerestriction." + plugin.getRestrictedWord())) {
-                            //Figure out how to move handItem out of HotBar
-                            event.setCancelled(true);
+                           plugin.moveItemFirstEmpty(player, handItem);
+                           event.setCancelled(true);
                            plugin.sendMessage(player, plugin.getConfig().getString("Messages." + plugin.getRestrictedWord()));
                         }
                     }
@@ -45,7 +45,7 @@ public class PlayerListener implements Listener {
                         if (lore.contains(string)) {
                             if (player.hasPermission("lorerestriction." + string)) return;
                             if (!player.hasPermission("lorerestriction." + string)) {
-                                //Figure out how to move handItem out of HotBar
+                                plugin.moveItemFirstEmpty(player, handItem);
                                 event.setCancelled(true);
                                 plugin.sendMessage(player, plugin.getConfig().getString("Messages." + string));
                             }
